@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Filter 1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>upload your document and your key words</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <br><br>
+            <label for="keywords">Keywords:</label>
+            <input type="text" id ="keywords" name="keywords">
+            <br><br>
+            <label for="file1">Document</label>
+            <input type="file" name="file1" id="file1">
+            <input type="submit" value="SUBMIT">
+        </form>
+        {% if url %}
+            <h5>UPLOADED FILE:<a href="{{ url }}" download>{{ url }}</a></h5>
+        {% endif %}
+    </body>
+</html>
