@@ -11,29 +11,27 @@ def handle_uploaded_file(file,keywords):
     folder_path = ""
     for i in path:
         folder_path+=f"{i}\\"
-    new_name = name.split('.')[0]+"_removed.csv"
-    with open(fs.path(name),'r') as f1 ,open(fs.path(new_name),'a') as f2:
-        reader = csv.reader(f1)
-        writer = csv.writer(f2)
+    new_name_1 = name.split('.')[0]+"_keywords_present.csv"
+    new_name_2 = name.split('.')[0]+"_keywords_removed.csv"
+    with open(fs.path(name),'r') as f1 ,open(fs.path(new_name_1),'a') as f2,open(fs.path(new_name_2),'a') as f3:
+        reader  = csv.reader(f1)
+        writer1 = csv.writer(f2)
+        writer2 = csv.writer(f3)
         count = 0
         for row in reader:
+            string = " ".join(row)
             if count==0:
-                row.append("Result")
-                writer.writerow(row)
+                writer1.writerow(row)
+                writer2.writerow(row)
                 count+=1
             else:
                 flag = False
-                for item in row:
-                    for keyword in keywords:
-                        if keyword in item:
-                            flag = True
-                            break
-                if flag:
-                    row.append("KEYWORD PRESENT")
-                    writer.writerow(row)
-                else:
-                    row.append("NO KEYWORD FOUND")
-                    writer.writerow(row)
-    return new_name
-
+                for keyword in keywords:
+                    if keyword in string:
+                        flag = True
+                        writer1.writerow(row)
+                        break
+                if flag==False:
+                    writer2.writerow(row)
+    return (new_name_1,new_name_2)
 

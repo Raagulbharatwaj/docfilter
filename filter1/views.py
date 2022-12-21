@@ -10,8 +10,9 @@ def home_page(request):
         keywords = text.split()
         uploaded_file = request.FILES["file1"]
         fs = FileSystemStorage()
-        name = handle_uploaded_file(uploaded_file,keywords)
-        context["url"] = fs.url(name)
+        name1,name2 = handle_uploaded_file(uploaded_file,keywords)
+        context["url1"] = fs.url(name1)
+        context["url2"] = fs.url(name2)
         #handle_uploaded_file(uploaded_file,keywords)
         return render(request,"home.html",context)
     return render(request,"home.html")
